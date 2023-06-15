@@ -1,18 +1,20 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
-// In your main.js file
-import { createApp } from 'vue'
-import App from './App.vue'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-
-var firebaseConfig = {
-  // your-config
+const firebaseConfig = {
+  apiKey: "AIzaSyBPiguxyo_Z3OBWK3PymwMv-kPWSWbhCVg",
+  authDomain: "gpt-usuario.firebaseapp.com",
+  projectId: "gpt-usuario",
+  storageBucket: "gpt-usuario.appspot.com",
+  messagingSenderId: "4858042794",
+  appId: "1:4858042794:web:d40ddeff10949bcc6533d3",
+  measurementId: "G-GSM9RKZ385"
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
+const auth = getAuth();
 
-createApp(App).mount('#app')
-
+createApp(App).use(auth).mount('#app')
