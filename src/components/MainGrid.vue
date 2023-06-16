@@ -1,35 +1,54 @@
 <template>
-    <div class="grid">
-        asdasdas
-      <router-link to="/view1">View 1</router-link>
-      <router-link to="/view2">View 2</router-link>
-      <router-link to="/view3">View 3</router-link>
-      <!-- Add more links as needed -->
-    </div>
+    <div class="container">
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <!-- Top bar content goes here -->
+      </div>
   
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
+      <!-- Main Content -->
+      <div class="main-content">
+        <DinnerComponent />
+        <FridgeComponent />
+        <LastMealComponent />
+      </div>
+  
+      <!-- Bottom Bar -->
+      <div class="bottom-bar">
+        <!-- Bottom bar content goes here -->
+      </div>
+    </div>
   </template>
   
   <script>
+  import DinnerComponent from './DinnerComponent.vue';
+  import FridgeComponent from './FridgeComponent.vue';
+  import LastMealComponent from './LastMealComponent.vue';
+  
   export default {
-    name: 'GridNavigation'
+    name: 'MainView',
+    components: {
+      DinnerComponent,
+      FridgeComponent,
+      LastMealComponent
+    }
   }
   </script>
   
   <style scoped>
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Adjust as needed */
-    gap: 10px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
   }
   
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity 0.5s;
+  .top-bar, .bottom-bar {
+    height: 10vh; /* adjust as needed */
+    background-color: #f8f9fa;
   }
   
-  .fade-enter, .fade-leave-to {
-    opacity: 0;
+  .main-content {
+    flex-grow: 1;
+    overflow: auto;
   }
   </style>
+  
