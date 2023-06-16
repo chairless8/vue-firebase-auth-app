@@ -7,9 +7,8 @@
   
       <!-- Main Content -->
       <div class="main-content">
-        <DinnerComponent />
+        <PosibleMealsComponent />
         <FridgeComponent />
-        <LastMealComponent />
       </div>
   
       <!-- Bottom Bar -->
@@ -20,16 +19,14 @@
   </template>
   
   <script>
-  import DinnerComponent from './DinnerComponent.vue';
-  import FridgeComponent from './FridgeComponent.vue';
-  import LastMealComponent from './LastMealComponent.vue';
+  import PosibleMealsComponent from './my_fridge/future/PosibleMealsComponent.vue';
+  import FridgeComponent from './my_fridge/present/FridgeComponent.vue';
   
   export default {
     name: 'MainView',
     components: {
-      DinnerComponent,
-      FridgeComponent,
-      LastMealComponent
+        PosibleMealsComponent,
+      FridgeComponent
     }
   }
   </script>

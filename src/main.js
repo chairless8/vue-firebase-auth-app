@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 import router from './router'
 import { useStore } from './store'
 import { createPinia } from 'pinia';
+import vuetify from './plugins/vuetify' 
 
 const firebaseConfig = {
   apiKey: "AIzaSyBPiguxyo_Z3OBWK3PymwMv-kPWSWbhCVg",
@@ -21,5 +22,5 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 
 const app = createApp(App);
-app.use(auth).use(router).use(useStore).use(createPinia()).mount('#app')
+app.use(auth).use(router).use(useStore).use(vuetify).use(createPinia()).mount('#app')
 
