@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-
+import router from './router'
 const firebaseConfig = {
   apiKey: "AIzaSyBPiguxyo_Z3OBWK3PymwMv-kPWSWbhCVg",
   authDomain: "gpt-usuario.firebaseapp.com",
@@ -17,4 +17,4 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const auth = getAuth();
 
-createApp(App).use(auth).mount('#app')
+createApp(App).use(auth).use(router).mount('#app')
