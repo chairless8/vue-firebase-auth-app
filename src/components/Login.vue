@@ -12,7 +12,7 @@
   import { useUserStore } from '../stores/user';
   
   export default {
-    name: 'Login',
+    name: 'Login_firebase',
     setup() {
       const router = useRouter();
       const user = ref(null);
