@@ -3,6 +3,9 @@ import App from './App.vue'
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import router from './router'
+import { useStore } from './store'
+import { createPinia } from 'pinia';
+
 const firebaseConfig = {
   apiKey: "AIzaSyBPiguxyo_Z3OBWK3PymwMv-kPWSWbhCVg",
   authDomain: "gpt-usuario.firebaseapp.com",
@@ -17,4 +20,6 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const auth = getAuth();
 
-createApp(App).use(auth).use(router).mount('#app')
+const app = createApp(App);
+app.use(auth).use(router).use(useStore).use(createPinia()).mount('#app')
+
