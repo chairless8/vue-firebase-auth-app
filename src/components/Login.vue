@@ -9,7 +9,7 @@
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
-  import { useUserStore } from '../stores/user';
+  import { useUserStore } from '../store/user';
   
   export default {
     name: 'Login_firebase',

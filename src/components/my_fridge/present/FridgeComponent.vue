@@ -8,9 +8,9 @@
           </div>
         </v-card-title>
         <v-card-text>
-          <TodoItem v-for="(todo, index) in todos"
+          <TodoItem v-for="(name, index) in todos"
                     :key="index"
-                    :todo="todo">
+                    :todo="name">
           </TodoItem>
           <InputField ref="inputFeild"></InputField>
         </v-card-text>
@@ -28,7 +28,7 @@ export default {
   name: 'FridgeComponent',
   data() {
     return {
-      items: [
+      todos: [
         { name: 'Item 1', quantity: 1 },
         { name: 'Item 2', quantity: 2 },
         // Add more items for testing as needed

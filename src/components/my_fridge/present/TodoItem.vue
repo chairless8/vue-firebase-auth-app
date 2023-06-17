@@ -1,36 +1,24 @@
 <template>
-  <v-layout sm6 align-start justify-space-between row sm10>
-    <v-flex align-center xs10>
-      <v-textarea :value = "title"
-                  ref = "input"
-                  v-bind:class = "[todo.done ? 'is-done' : '']"
-                  @blur = "editingCompleted"
-                  @keydown.enter.prevent = "editingCompleted"
-                  @dblclick= "edit"
-                  :readonly = "isReadOnly"
-                  solo
-                  :rules="[rules.minLength]"
-                  :rows = "1"
-                  auto-grow>
-      </v-textarea>
-    </v-flex>
-    <v-layout row>
-      <v-btn icon @click="edit()">
-        <v-icon>edit</v-icon>
-      </v-btn>
-      <v-btn icon @click="toggleTodo(todo)">
-        <v-icon>done</v-icon>
-      </v-btn>
-      <v-btn icon @click="deleteTodo(todo)">
-        <v-icon>delete_forever</v-icon>
-      </v-btn>
-    </v-layout>
-  </v-layout>
+  <div class="todo-item">
+    <input type="text" 
+           v-model="editedTitle" 
+           @blur="editingCompleted" 
+           @keydown.enter.prevent="editingCompleted" 
+           :readonly="isReadOnly" 
+           :class="{ 'is-done': todo.done }"
+    >
+    {{ todo }}
+    <button @click="edit">Edit</button>
+    <button @click="toggleTodo">Toggle Done</button>
+    <button @click="deleteTodo">Delete</button>
+  </div>
+  <button @click="addTodo">Add Todo</button>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-const MIN_LENGTH_VALIDATION = 3
+import { useTodosStore } from '@/stores/todos'
+
 
 export default {
   name: 'TodoItem',
@@ -38,17 +26,35 @@ export default {
   data () {
     return {
       isReadOnly: true,
-      rules: {
-        minLength: value => {
-          return (value.length >= MIN_LENGTH_VALIDATION) || `Required having at least ${MIN_LENGTH_VALIDATION} characters.`
-        }
-      }
+      editedTitle: ''
     }
   },
-  computed: {
-    title () {
-      return this.todo.title
+  setup() {
+    const todosStore = useTodosStore()
+
+    // Ahora puedes acceder al estado y las acciones del store
+    console.log(todosStore.todos)
+    let myTodo = { title: 'Old Title', done: false };
+    let newTitle = 'New Title';
+
+    todosStore.editTodo(myTodo, newTitle);
+
+    function addTodo() {
+      // Aquí puedes definir la lógica para agregar un nuevo todo.
+      // Por ejemplo, podrías abrir un modal que permita al usuario introducir el título del nuevo todo.
+      const newTodo = {
+        title: 'New Todo',
+        done: false
+      }
+      todosStore.addTodo(newTodo)
     }
+
+    return {
+      addTodo
+    }
+  },
+  created() {
+    this.editedTitle = this.todo.title
   },
   methods: {
     ...mapActions([
@@ -57,15 +63,11 @@ export default {
       'deleteTodo'
     ]),
     edit () {
-      this.isReadOnly = this.todo.done
-      this.$refs.input.focus()
+      this.isReadOnly = false
     },
-    editingCompleted (e) {
-      const newTitle = e.target.value
-      const validation = (newTitle.length >= MIN_LENGTH_VALIDATION)
-
-      if (!this.isReadOnly && validation) {
-        this.editTodo({ todo: this.todo, title: newTitle })
+    editingCompleted () {
+      if (this.editedTitle.trim().length > 0) {
+        this.editTodo({ todo: this.todo, title: this.editedTitle })
         this.isReadOnly = true
       }
     }
@@ -73,7 +75,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .is-done {
   text-decoration: line-through;
 }
